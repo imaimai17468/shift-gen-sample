@@ -5,6 +5,6 @@ export type UserTimeline = {
   user: User;
   timeline: {
     time: string;
-    task: Task;
+    task: Task | null;
   }[];
 }[];
