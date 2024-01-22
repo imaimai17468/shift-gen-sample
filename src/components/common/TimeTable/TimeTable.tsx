@@ -12,13 +12,15 @@ export const TimeTable = () => {
   }, []);
 
   return (
-    <Table withTableBorder>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Time</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>{rows}</Table.Tbody>
-    </Table>
+    <div className="w-32">
+      <Table withTableBorder>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Time</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{rows}</Table.Tbody>
+      </Table>
+    </div>
   );
 };
