@@ -2,10 +2,10 @@ import { ShiftTable } from "@/components/common/ShiftTable";
 import { TaskTable } from "@/components/common/TaskTable";
 import { TaskTimeline } from "@/types/TaskTimeline";
 import { UserTimeline } from "@/types/UserTimeline";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { genDefaultTaskTimelines } from "@/utils/genDefaultTaskTimelines";
 import { genDefaultUserTimelines } from "@/utils/genDefaultUserTimelines";
-import { Button } from "@mantine/core";
+import { Button, Input } from "@mantine/core";
 import { combination } from "@/utils/combination";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 
@@ -16,6 +16,7 @@ export default function Home() {
   const [taskTimelines, setTaskTimelines] = useState<TaskTimeline[]>(
     genDefaultTaskTimelines()
   );
+  const [continuousAssign, setContinuousAssign] = useState<number>(1);
 
   const handleGenerateShift = () => {
     const userNames = userTimelines.map((userTimeline) => userTimeline.user);
@@ -43,7 +44,29 @@ export default function Home() {
           return;
         }
 
-        const combinationUsers = combination(noTaskUsers, requiredPersonnel)[0];
+        const combinations = combination(noTaskUsers, requiredPersonnel);
+
+        const combinationUsers = combinations.filter((combination) => {
+          const continuousAssignCount = combination.some((user) => {
+            const userTimelineIndex = newUserTimelines.findIndex(
+              (userTimeline) => userTimeline.user === user
+            );
+            const userTimeline = newUserTimelines[userTimelineIndex];
+            const continuousAssignCount = userTimeline.timeline
+              .slice(index - continuousAssign, index)
+              .filter((timeline) => timeline.task === taskName).length;
+            return continuousAssignCount >= continuousAssign;
+          });
+          return !continuousAssignCount;
+        })[0];
+
+        if (!combinationUsers) {
+          console.log(
+            `連続割り当て可能数の制約によって、${SHIFT_TIMES[index]}で${taskName}を割り当てられませんでした`
+          );
+          return;
+        }
+
         combinationUsers.forEach((user) => {
           console.log(user);
           const userTimelineIndex = newUserTimelines.findIndex(
@@ -68,6 +91,15 @@ export default function Home() {
       <div className="flex gap-4">
         <h1 className="text-2xl font-bold">Shift-Gen-Sample</h1>
         <Button onClick={handleGenerateShift}>Generate Shift</Button>
+      </div>
+      <div className="flex gap-4 items-center">
+        <p>連続割り当て可能数</p>
+        <Input
+          value={continuousAssign}
+          onChange={(event) => {
+            setContinuousAssign(Number(event.currentTarget.value));
+          }}
+        />
       </div>
       <div className="flex gap-8">
         <ShiftTable
