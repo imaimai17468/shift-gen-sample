@@ -1,4 +1,4 @@
-function combination<T>(arr: T[], k: number): T[][] {
+export const combination = <T>(arr: T[], k: number): T[][] => {
   if (k === 0 || arr.length < k) {
     return [[]];
   }
@@ -13,4 +13,4 @@ function combination<T>(arr: T[], k: number): T[][] {
   const withoutFirst = combination(rest, k);
 
   return [...withFirst, ...withoutFirst];
-}
+};
