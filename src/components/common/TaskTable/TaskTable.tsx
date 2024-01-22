@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import { genDefaultTaskTimelines } from "../../../utils/genDefaultTaskTimelines";
 import { TaskTimelines } from "@/types/TaskTimelines";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
-import { Table } from "@mantine/core";
+import { Button, Table } from "@mantine/core";
 
 export const TaskTable = () => {
   const [taskTimelines, setTaskTimelines] = useState<TaskTimelines>(
@@ -24,7 +24,25 @@ export const TaskTable = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-xl">Tasks</h2>
+      <div className="flex gap-2">
+        <h2 className="text-xl">Tasks</h2>
+        <Button
+          onClick={() => {
+            setTaskTimelines((prev) => [
+              ...prev,
+              {
+                task: `task${prev.length + 1}`,
+                timeline: SHIFT_TIMES.map((time) => ({
+                  required_personnel: 0,
+                  time,
+                })),
+              },
+            ]);
+          }}
+        >
+          Add Task
+        </Button>
+      </div>
       <div className="flex gap-2">
         <TimeTable />
         <Table>
