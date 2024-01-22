@@ -51,7 +51,7 @@ export const ShiftTable = () => {
                   <Input
                     size="xs"
                     className="w-24"
-                    defaultValue={userName}
+                    value={userName}
                     onChange={(event) => {
                       const newUserName = event.currentTarget.value;
                       setUserTimelines((prev) => {
