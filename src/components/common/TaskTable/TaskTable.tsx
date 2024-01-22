@@ -10,18 +10,6 @@ export const TaskTable = () => {
     genDefaultTaskTimelines()
   );
 
-  const taskNames = useMemo(() => {
-    return taskTimelines.map((timeline) => timeline.task);
-  }, [taskTimelines]);
-
-  const eachTimeRequiredPersonnel = useMemo(() => {
-    return SHIFT_TIMES.map((time, index) => {
-      return taskTimelines.reduce((acc, timeline) => {
-        return acc + timeline.timeline[index].required_personnel;
-      }, 0);
-    });
-  }, [taskTimelines]);
-
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
@@ -48,20 +36,20 @@ export const TaskTable = () => {
         <Table>
           <Table.Thead>
             <Table.Tr>
-              {taskNames.map((TaskName) => (
-                <Table.Th key={TaskName} className="whitespace-nowrap">
+              {taskTimelines.map((timeline, index) => (
+                <Table.Th key={index} className="whitespace-nowrap">
                   <Input
                     size="xs"
                     className="w-24"
-                    defaultValue={TaskName}
+                    value={timeline.task}
                     onChange={(event) => {
-                      const newTaskName = event.currentTarget.value;
+                      const newTask = event.currentTarget.value;
                       setTaskTimelines((prev) => {
-                        return prev.map((timeline) => {
-                          if (timeline.task === TaskName) {
+                        return prev.map((timeline, timelineIndex) => {
+                          if (timelineIndex === index) {
                             return {
                               ...timeline,
-                              task: newTaskName,
+                              task: newTask,
                             };
                           }
                           return timeline;
@@ -83,7 +71,11 @@ export const TaskTable = () => {
                   </Table.Td>
                 ))}
                 <Table.Td className="whitespace-nowrap">
-                  {eachTimeRequiredPersonnel[index]}
+                  {taskTimelines.reduce(
+                    (acc, cur) =>
+                      acc + cur.timeline[index].required_personnel,
+                    0
+                  )}
                 </Table.Td>
               </Table.Tr>
             ))}
