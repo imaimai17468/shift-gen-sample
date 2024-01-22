@@ -52,6 +52,7 @@ export const TaskTable = () => {
                 <Table.Th key={TaskName} className="whitespace-nowrap">
                   <Input
                     size="xs"
+                    className="w-24"
                     defaultValue={TaskName}
                     onChange={(event) => {
                       const newTaskName = event.currentTarget.value;

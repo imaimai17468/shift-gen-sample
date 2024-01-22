@@ -2,9 +2,8 @@ import { TimeTable } from "../TimeTable";
 import { UserTimelines } from "@/types/UserTimelines";
 import { genDefaultUserTimelines } from "@/utils/genDefaultUserTimelines";
 import { useState, useMemo } from "react";
-import { Table } from "@mantine/core";
+import { Table, Button, Input } from "@mantine/core";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
-import { Button } from "@mantine/core";
 
 export const ShiftTable = () => {
   const [userTimelines, setUserTimelines] = useState<UserTimelines>(
@@ -49,7 +48,25 @@ export const ShiftTable = () => {
             <Table.Tr>
               {userNames.map((userName) => (
                 <Table.Th key={userName} className="whitespace-nowrap">
-                  {userName}
+                  <Input
+                    size="xs"
+                    className="w-24"
+                    defaultValue={userName}
+                    onChange={(event) => {
+                      const newUserName = event.currentTarget.value;
+                      setUserTimelines((prev) => {
+                        return prev.map((timeline) => {
+                          if (timeline.user === userName) {
+                            return {
+                              ...timeline,
+                              user: newUserName,
+                            };
+                          }
+                          return timeline;
+                        });
+                      });
+                    }}
+                  />
                 </Table.Th>
               ))}
             </Table.Tr>
