@@ -9,8 +9,17 @@ export const TaskTable = () => {
   const [taskTimelines, setTaskTimelines] = useState<TaskTimelines>(
     genDefaultTaskTimelines()
   );
-  const TaskNames = useMemo(() => {
+
+  const taskNames = useMemo(() => {
     return taskTimelines.map((timeline) => timeline.task);
+  }, [taskTimelines]);
+
+  const eachTimeRequiredPersonnel = useMemo(() => {
+    return SHIFT_TIMES.map((time, index) => {
+      return taskTimelines.reduce((acc, timeline) => {
+        return acc + timeline.timeline[index].required_personnel;
+      }, 0);
+    });
   }, [taskTimelines]);
 
   return (
@@ -21,11 +30,12 @@ export const TaskTable = () => {
         <Table>
           <Table.Thead>
             <Table.Tr>
-              {TaskNames.map((TaskName) => (
+              {taskNames.map((TaskName) => (
                 <Table.Th key={TaskName} className="whitespace-nowrap">
                   {TaskName}
                 </Table.Th>
               ))}
+              <Table.Th className="whitespace-nowrap">合計</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -36,6 +46,9 @@ export const TaskTable = () => {
                     {timeline.timeline[index].required_personnel}
                   </Table.Td>
                 ))}
+                <Table.Td className="whitespace-nowrap">
+                  {eachTimeRequiredPersonnel[index]}
+                </Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>
