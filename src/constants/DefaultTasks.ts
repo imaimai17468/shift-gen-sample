@@ -5,5 +5,3 @@ export const DEFAULT_TASKS = [
   "ゴミ箱管理",
   "駐車場待機"
 ] as const;
-
-export type Task = typeof DEFAULT_TASKS[number];

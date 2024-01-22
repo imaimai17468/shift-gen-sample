@@ -1,7 +1,5 @@
-import { Task } from "@/constants/DefaultTasks";
-
 export type TaskTimelines = {
-  task: Task;
+  task: string;
   timeline: {
     time: string;
     required_personnel: number;
