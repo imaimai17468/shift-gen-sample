@@ -21,7 +21,9 @@ export const ShiftTable = () => {
         <Table.Thead>
           <Table.Tr>
             {userNames.map((userName) => (
-              <Table.Th key={userName}>{userName}</Table.Th>
+              <Table.Th key={userName} className="whitespace-nowrap">
+                {userName}
+              </Table.Th>
             ))}
           </Table.Tr>
         </Table.Thead>
