@@ -8,6 +8,7 @@ import { genDefaultUserTimelines } from "@/utils/genDefaultUserTimelines";
 import { Button, Input } from "@mantine/core";
 import { combination } from "@/utils/combination";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
+import { notifications } from "@mantine/notifications";
 
 export default function Home() {
   const [userTimelines, setUserTimelines] = useState<UserTimeline[]>(
@@ -61,9 +62,11 @@ export default function Home() {
         })[0];
 
         if (!combinationUsers) {
-          console.log(
-            `連続割り当て可能数の制約によって、${SHIFT_TIMES[index]}で${taskName}を割り当てられませんでした`
-          );
+          notifications.show({
+            color: "red",
+            title: "割り当てエラー",
+            message: `連続割り当て可能数の制約によって、${SHIFT_TIMES[index]}で${taskName}を割り当てられませんでした`,
+          });
           return;
         }
 
