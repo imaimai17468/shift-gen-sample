@@ -23,7 +23,7 @@ export const ShiftTable = ({ userTimelines, setUserTimelines }: Props) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <h2 className="text-xl">Shifts</h2>
         <Button
           onClick={() => {
