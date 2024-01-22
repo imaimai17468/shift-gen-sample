@@ -10,6 +10,19 @@ export const TaskTable = () => {
     genDefaultTaskTimelines()
   );
 
+  const taskNames = useMemo(() => {
+    return taskTimelines.map((timeline) => timeline.task);
+  }, [taskTimelines]);
+
+  const eachTimeRequiredPersonnel = useMemo(() => {
+    return SHIFT_TIMES.map((time) => {
+      return taskTimelines.reduce((acc, cur) => {
+        return acc + cur.timeline.find((t) => t.time === time)!.required_personnel;
+      }, 0);
+    });
+  }
+  , [taskTimelines]);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
@@ -36,12 +49,12 @@ export const TaskTable = () => {
         <Table>
           <Table.Thead>
             <Table.Tr>
-              {taskTimelines.map((timeline, index) => (
+              {taskNames.map((task, index) => (
                 <Table.Th key={index} className="whitespace-nowrap">
                   <Input
                     size="xs"
                     className="w-24"
-                    value={timeline.task}
+                    value={task}
                     onChange={(event) => {
                       const newTask = event.currentTarget.value;
                       setTaskTimelines((prev) => {
@@ -71,11 +84,7 @@ export const TaskTable = () => {
                   </Table.Td>
                 ))}
                 <Table.Td className="whitespace-nowrap">
-                  {taskTimelines.reduce(
-                    (acc, cur) =>
-                      acc + cur.timeline[index].required_personnel,
-                    0
-                  )}
+                  {eachTimeRequiredPersonnel[index]}
                 </Table.Td>
               </Table.Tr>
             ))}
