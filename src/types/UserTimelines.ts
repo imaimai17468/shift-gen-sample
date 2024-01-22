@@ -1,8 +1,7 @@
-import { User } from "@/constants/DefaultUsers";
 import { Task } from "@/constants/DefaultTasks";
 
 export type UserTimelines = {
-  user: User;
+  user: string;
   timeline: {
     time: string;
     task: Task | null;
