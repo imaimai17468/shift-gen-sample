@@ -32,10 +32,7 @@ export const TaskTable = () => {
             {SHIFT_TIMES.map((time, index) => (
               <Table.Tr key={time}>
                 {taskTimelines.map((timeline) => (
-                  <Table.Td
-                    key={timeline.task}
-                    className="whitespace-nowrap text-center"
-                  >
+                  <Table.Td key={timeline.task} className="whitespace-nowrap">
                     {timeline.timeline[index].required_personnel}
                   </Table.Td>
                 ))}

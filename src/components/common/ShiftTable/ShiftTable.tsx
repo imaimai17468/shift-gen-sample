@@ -14,6 +14,12 @@ export const ShiftTable = () => {
     return userTimelines.map((timeline) => timeline.user);
   }, [userTimelines]);
 
+  const userNoTaskCount = useMemo(() => {
+    return userTimelines.map((timeline) => {
+      return timeline.timeline.filter((t) => t.task === null).length;
+    });
+  }, [userTimelines]);
+
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-xl">Shifts</h2>
@@ -39,6 +45,13 @@ export const ShiftTable = () => {
                 ))}
               </Table.Tr>
             ))}
+            <Table.Tr>
+              {userNoTaskCount.map((count, index) => (
+                <Table.Td key={index} className="whitespace-nowrap">
+                  休:{count}
+                </Table.Td>
+              ))}
+            </Table.Tr>
           </Table.Tbody>
         </Table>
       </div>
