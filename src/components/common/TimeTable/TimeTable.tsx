@@ -14,7 +14,9 @@ export const TimeTable = () => {
   return (
     <Table withTableBorder>
       <Table.Thead>
-        <Table.Th>Time</Table.Th>
+        <Table.Tr>
+          <Table.Th>Time</Table.Th>
+        </Table.Tr>
       </Table.Thead>
       <Table.Tbody>{rows}</Table.Tbody>
     </Table>
