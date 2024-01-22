@@ -1,3 +1,22 @@
+import { SHIFT_TIMES } from "@/constants/ShiftTimes";
+import { Table } from "@mantine/core";
+import { useMemo } from "react";
+
 export const TimeTable = () => {
-  return <div>Time</div>;
-}
+  const rows = useMemo(() => {
+    return SHIFT_TIMES.map((time) => (
+      <Table.Tr key={time}>
+        <Table.Td>{time}</Table.Td>
+      </Table.Tr>
+    ));
+  }, []);
+
+  return (
+    <Table>
+      <Table.Thead>
+        <Table.Th>Time</Table.Th>
+      </Table.Thead>
+      <Table.Tbody>{rows}</Table.Tbody>
+    </Table>
+  );
+};
