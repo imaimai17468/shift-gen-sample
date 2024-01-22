@@ -5,11 +5,12 @@ import { TaskTimelines } from "@/types/TaskTimelines";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 import { Button, Table, Input } from "@mantine/core";
 
-export const TaskTable = () => {
-  const [taskTimelines, setTaskTimelines] = useState<TaskTimelines>(
-    genDefaultTaskTimelines()
-  );
+type Props = {
+  taskTimelines: TaskTimelines;
+  setTaskTimelines: React.Dispatch<React.SetStateAction<TaskTimelines>>;
+};
 
+export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
   const taskNames = useMemo(() => {
     return taskTimelines.map((timeline) => timeline.task);
   }, [taskTimelines]);

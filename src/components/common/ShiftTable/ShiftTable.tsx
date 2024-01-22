@@ -5,11 +5,12 @@ import { useState, useMemo } from "react";
 import { Table, Button, Input } from "@mantine/core";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 
-export const ShiftTable = () => {
-  const [userTimelines, setUserTimelines] = useState<UserTimelines>(
-    genDefaultUserTimelines()
-  );
+type Props = {
+  userTimelines: UserTimelines;
+  setUserTimelines: React.Dispatch<React.SetStateAction<UserTimelines>>;
+}
 
+export const ShiftTable = ({ userTimelines, setUserTimelines }: Props) => {
   const userNames = useMemo(() => {
     return userTimelines.map((timeline) => timeline.user);
   }, [userTimelines]);
