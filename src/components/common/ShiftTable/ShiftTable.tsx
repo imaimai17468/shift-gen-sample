@@ -46,8 +46,8 @@ export const ShiftTable = () => {
         <Table>
           <Table.Thead>
             <Table.Tr>
-              {userNames.map((userName) => (
-                <Table.Th key={userName} className="whitespace-nowrap">
+              {userNames.map((userName, index) => (
+                <Table.Th key={index} className="whitespace-nowrap">
                   <Input
                     size="xs"
                     className="w-24"
@@ -55,8 +55,8 @@ export const ShiftTable = () => {
                     onChange={(event) => {
                       const newUserName = event.currentTarget.value;
                       setUserTimelines((prev) => {
-                        return prev.map((timeline) => {
-                          if (timeline.user === userName) {
+                        return prev.map((timeline, timelineIndex) => {
+                          if (timelineIndex === index) {
                             return {
                               ...timeline,
                               user: newUserName,
