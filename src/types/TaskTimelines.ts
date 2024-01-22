@@ -1,6 +1,6 @@
 import { Task } from "@/constants/DefaultTasks";
 
-export type TaskTimeline = {
+export type TaskTimelines = {
   task: Task;
   timeline: {
     time: string;
