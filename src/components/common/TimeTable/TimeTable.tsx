@@ -6,7 +6,7 @@ export const TimeTable = () => {
   const rows = useMemo(() => {
     return SHIFT_TIMES.map((time) => (
       <Table.Tr key={time}>
-        <Table.Td className="text-center">{time}</Table.Td>
+        <Table.Td className="text-center h-12">{time}</Table.Td>
       </Table.Tr>
     ));
   }, []);
@@ -16,7 +16,7 @@ export const TimeTable = () => {
       <Table withTableBorder>
         <Table.Thead>
           <Table.Tr>
-            <Table.Th>Time</Table.Th>
+            <Table.Th className="h-12">Time</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>

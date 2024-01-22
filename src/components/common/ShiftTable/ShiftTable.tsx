@@ -48,7 +48,7 @@ export const ShiftTable = ({ userTimelines, setUserTimelines }: Props) => {
           <Table.Thead>
             <Table.Tr>
               {userNames.map((userName, index) => (
-                <Table.Th key={index} className="whitespace-nowrap">
+                <Table.Th key={index} className="whitespace-nowrap h-12">
                   <Input
                     size="xs"
                     className="w-24"
@@ -76,7 +76,7 @@ export const ShiftTable = ({ userTimelines, setUserTimelines }: Props) => {
             {SHIFT_TIMES.map((time, index) => (
               <Table.Tr key={time}>
                 {userTimelines.map((timeline) => (
-                  <Table.Td key={timeline.user} className="whitespace-nowrap">
+                  <Table.Td key={timeline.user} className="whitespace-nowrap h-12">
                     {timeline.timeline[index].task || "なし"}
                   </Table.Td>
                 ))}

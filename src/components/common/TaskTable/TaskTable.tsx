@@ -52,7 +52,7 @@ export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
           <Table.Thead>
             <Table.Tr>
               {taskNames.map((task, index) => (
-                <Table.Th key={index} className="whitespace-nowrap">
+                <Table.Th key={index} className="whitespace-nowrap h-12">
                   <Input
                     size="xs"
                     className="w-24"
@@ -74,7 +74,7 @@ export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
                   />
                 </Table.Th>
               ))}
-              <Table.Th className="whitespace-nowrap">合計</Table.Th>
+              <Table.Th className="whitespace-nowrap h-12">合計</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
