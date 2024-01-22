@@ -4,6 +4,7 @@ import { genDefaultUserTimelines } from "@/utils/genDefaultUserTimelines";
 import { useState, useMemo } from "react";
 import { Table } from "@mantine/core";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
+import { Button } from "@mantine/core";
 
 export const ShiftTable = () => {
   const [userTimelines, setUserTimelines] = useState<UserTimelines>(
@@ -22,7 +23,25 @@ export const ShiftTable = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-xl">Shifts</h2>
+      <div className="flex gap-4">
+        <h2 className="text-xl">Shifts</h2>
+        <Button
+          onClick={() => {
+            setUserTimelines((prev) => [
+              ...prev,
+              {
+                user: `user${prev.length + 1}`,
+                timeline: SHIFT_TIMES.map((time) => ({
+                  task: null,
+                  time,
+                })),
+              },
+            ]);
+          }}
+        >
+          add User
+        </Button>
+      </div>
       <div className="flex gap-2 items-start">
         <TimeTable />
         <Table>
