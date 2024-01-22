@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import { genDefaultTaskTimelines } from "../../../utils/genDefaultTaskTimelines";
 import { TaskTimelines } from "@/types/TaskTimelines";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
-import { Button, Table } from "@mantine/core";
+import { Button, Table, Input } from "@mantine/core";
 
 export const TaskTable = () => {
   const [taskTimelines, setTaskTimelines] = useState<TaskTimelines>(
@@ -50,7 +50,24 @@ export const TaskTable = () => {
             <Table.Tr>
               {taskNames.map((TaskName) => (
                 <Table.Th key={TaskName} className="whitespace-nowrap">
-                  {TaskName}
+                  <Input
+                    size="xs"
+                    defaultValue={TaskName}
+                    onChange={(event) => {
+                      const newTaskName = event.currentTarget.value;
+                      setTaskTimelines((prev) => {
+                        return prev.map((timeline) => {
+                          if (timeline.task === TaskName) {
+                            return {
+                              ...timeline,
+                              task: newTaskName,
+                            };
+                          }
+                          return timeline;
+                        });
+                      });
+                    }}
+                  />
                 </Table.Th>
               ))}
               <Table.Th className="whitespace-nowrap">合計</Table.Th>
