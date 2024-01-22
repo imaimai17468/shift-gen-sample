@@ -77,6 +77,7 @@ export default function Home() {
         <TaskTable
           taskTimelines={taskTimelines}
           setTaskTimelines={setTaskTimelines}
+          userLength={userTimelines.length}
         />
       </div>
     </div>

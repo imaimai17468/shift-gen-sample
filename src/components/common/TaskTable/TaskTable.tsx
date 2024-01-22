@@ -4,13 +4,19 @@ import { genDefaultTaskTimelines } from "../../../utils/genDefaultTaskTimelines"
 import { TaskTimeline } from "@/types/TaskTimeline";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 import { Button, Table, Input } from "@mantine/core";
+import clsx from "clsx";
 
 type Props = {
   taskTimelines: TaskTimeline[];
   setTaskTimelines: React.Dispatch<React.SetStateAction<TaskTimeline[]>>;
+  userLength: number;
 };
 
-export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
+export const TaskTable = ({
+  taskTimelines,
+  setTaskTimelines,
+  userLength,
+}: Props) => {
   const taskNames = useMemo(() => {
     return taskTimelines.map((timeline) => timeline.task);
   }, [taskTimelines]);
@@ -25,9 +31,15 @@ export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
     });
   }, [taskTimelines]);
 
+  const overErrorVisible = useMemo(() => {
+    return eachTimeRequiredPersonnel.some((personnel) => {
+      return personnel > userLength;
+    });
+  }, [eachTimeRequiredPersonnel, userLength]);
+
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <h2 className="text-xl">Tasks</h2>
         <Button
           onClick={() => {
@@ -45,6 +57,7 @@ export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
         >
           Add Task
         </Button>
+        {overErrorVisible && <div className="text-sm text-red-500">人員不足の時間帯があります</div>}
       </div>
       <div className="flex gap-2">
         <TimeTable />
@@ -121,7 +134,13 @@ export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {
                     />
                   </Table.Td>
                 ))}
-                <Table.Td className="whitespace-nowrap">
+                <Table.Td
+                  className={clsx(
+                    "whitespace-nowrap",
+                    eachTimeRequiredPersonnel[index] > userLength &&
+                      "text-red-500"
+                  )}
+                >
                   {eachTimeRequiredPersonnel[index]}
                 </Table.Td>
               </Table.Tr>
