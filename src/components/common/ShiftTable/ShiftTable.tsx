@@ -1,14 +1,14 @@
 import { TimeTable } from "../TimeTable";
-import { UserTimelines } from "@/types/UserTimelines";
+import { UserTimeline } from "@/types/UserTimeline";
 import { genDefaultUserTimelines } from "@/utils/genDefaultUserTimelines";
 import { useState, useMemo } from "react";
 import { Table, Button, Input } from "@mantine/core";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 
 type Props = {
-  userTimelines: UserTimelines;
-  setUserTimelines: React.Dispatch<React.SetStateAction<UserTimelines>>;
-}
+  userTimelines: UserTimeline[];
+  setUserTimelines: React.Dispatch<React.SetStateAction<UserTimeline[]>>;
+};
 
 export const ShiftTable = ({ userTimelines, setUserTimelines }: Props) => {
   const userNames = useMemo(() => {

@@ -1,8 +1,8 @@
-import { UserTimelines } from "@/types/UserTimelines";
+import { UserTimeline } from "@/types/UserTimeline";
 import { DEFAULT_USERS } from "@/constants/DefaultUsers";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 
-export const genDefaultUserTimelines = (): UserTimelines => {
+export const genDefaultUserTimelines = (): UserTimeline[] => {
   return DEFAULT_USERS.map((user) => {
     return {
       user,

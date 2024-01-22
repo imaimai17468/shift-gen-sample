@@ -1,13 +1,13 @@
 import { TimeTable } from "../TimeTable";
 import { useState, useMemo } from "react";
 import { genDefaultTaskTimelines } from "../../../utils/genDefaultTaskTimelines";
-import { TaskTimelines } from "@/types/TaskTimelines";
+import { TaskTimeline } from "@/types/TaskTimeline";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 import { Button, Table, Input } from "@mantine/core";
 
 type Props = {
-  taskTimelines: TaskTimelines;
-  setTaskTimelines: React.Dispatch<React.SetStateAction<TaskTimelines>>;
+  taskTimelines: TaskTimeline[];
+  setTaskTimelines: React.Dispatch<React.SetStateAction<TaskTimeline[]>>;
 };
 
 export const TaskTable = ({ taskTimelines, setTaskTimelines }: Props) => {

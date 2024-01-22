@@ -1,8 +1,8 @@
-import { TaskTimelines } from "@/types/TaskTimelines";
+import { TaskTimeline } from "@/types/TaskTimeline";
 import { DEFAULT_TASKS } from "@/constants/DefaultTasks";
 import { SHIFT_TIMES } from "@/constants/ShiftTimes";
 
-export const genDefaultTaskTimelines = (): TaskTimelines => {
+export const genDefaultTaskTimelines = (): TaskTimeline[] => {
   return DEFAULT_TASKS.map((task) => {
     return {
       task,
