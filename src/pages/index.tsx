@@ -6,11 +6,11 @@ export default function Home() {
     <div className="flex flex-col gap-8 p-4">
       <h1 className="text-2xl font-bold">Shift-Gen-Sample</h1>
       <div className="flex gap-8">
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="text-xl">Shift Table</h2>
           <ShiftTable />
         </div>
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="text-xl">Task Table</h2>
           <TaskTable />
         </div>
