@@ -17,11 +17,12 @@ export const TaskTable = () => {
   const eachTimeRequiredPersonnel = useMemo(() => {
     return SHIFT_TIMES.map((time) => {
       return taskTimelines.reduce((acc, cur) => {
-        return acc + cur.timeline.find((t) => t.time === time)!.required_personnel;
+        return (
+          acc + cur.timeline.find((t) => t.time === time)!.required_personnel
+        );
       }, 0);
     });
-  }
-  , [taskTimelines]);
+  }, [taskTimelines]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -80,7 +81,43 @@ export const TaskTable = () => {
               <Table.Tr key={time}>
                 {taskTimelines.map((timeline) => (
                   <Table.Td key={timeline.task} className="whitespace-nowrap">
-                    {timeline.timeline[index].required_personnel}
+                    <Input
+                      size="xs"
+                      className="w-24"
+                      type="number"
+                      min={0}
+                      value={
+                        timeline.timeline.find((t) => t.time === time)!
+                          .required_personnel
+                      }
+                      onChange={(event) => {
+                        const newRequiredPersonnel = Number(
+                          event.currentTarget.value
+                        );
+                        setTaskTimelines((prev) => {
+                          return prev.map((prevTimeline) => {
+                            if (prevTimeline.task === timeline.task) {
+                              return {
+                                ...prevTimeline,
+                                timeline: prevTimeline.timeline.map(
+                                  (prevTimeline) => {
+                                    if (prevTimeline.time === time) {
+                                      return {
+                                        ...prevTimeline,
+                                        required_personnel:
+                                          newRequiredPersonnel,
+                                      };
+                                    }
+                                    return prevTimeline;
+                                  }
+                                ),
+                              };
+                            }
+                            return prevTimeline;
+                          });
+                        });
+                      }}
+                    />
                   </Table.Td>
                 ))}
                 <Table.Td className="whitespace-nowrap">
