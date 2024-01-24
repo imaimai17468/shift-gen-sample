@@ -17,7 +17,7 @@ export default function Home() {
   const [taskTimelines, setTaskTimelines] = useState<TaskTimeline[]>(
     genDefaultTaskTimelines()
   );
-  const [continuousAssign, setContinuousAssign] = useState<number>(1);
+  const [continuousAssign, setContinuousAssign] = useState<number>(3);
 
   const handleGenerateShift = () => {
     const userNames = userTimelines.map((userTimeline) => userTimeline.user);
